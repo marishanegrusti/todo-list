@@ -3,19 +3,37 @@ import './index.css';
 
 class TodoListItem extends Component {
 
+    state = {
+        done: false,
+        important: false
+    }
+
+    onLabelClick = () => {
+        this.setState((prev) => {
+            return {
+                ...prev,
+                done: !prev.done
+            }
+        });
+    }
+
     render() {
 
-        const {name, isImportant, done} = this.props;
+        const {label, important, done} = this.props;
 
         let classNames = 'todo-list-item';
+
+        if (this.state.done) {
+            classNames += ' done';
+        }
 
         return (
             <span className={classNames}>
               <span
                   className="todo-list-item-label"
-                  onClick={ null }
+                  onClick={ this.onLabelClick }
               >
-                {name}
+                {label}
               </span>
 
               <button type="button"
