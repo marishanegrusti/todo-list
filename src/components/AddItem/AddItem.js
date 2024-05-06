@@ -3,18 +3,30 @@ import './index.css';
 
 class AddItem extends Component {
 
+    state = {
+        label: ''
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onItemAdded(this.state.label);
+        this.setState({
+            label: ''
+        });
+    }
+
     render () {
         return (
             <form
                 className="d-flex add-item-form"
-                onSubmit={ null }
+                onSubmit={(e) => {this.onSubmit(e)}}
             >
                 <input
                     type="text"
                     className="form-control"
                     placeholder="What needs to be done"
-                    onChange={ null }
-                    value={''}
+                    onChange={(e) => {this.setState({label: e.target.value})}}
+                    value={this.state.label}
                 ></input>
                 <button
                     type="submit"
